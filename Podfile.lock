@@ -18,28 +18,25 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.7):
     - PINCache (= 3.0.1-beta.2)
     - PINRemoteImage/Core
-  - STRegex (0.4.3)
 
 DEPENDENCIES:
-  - AsyncDisplayKit (from `https://github.com/leotumwattana/AsyncDisplayKit.git`, tag `2.0`)
-  - STRegex
+  - AsyncDisplayKit (from `https://github.com/leotumwattana/AsyncDisplayKit.git`, branch `2.0`)
 
 EXTERNAL SOURCES:
   AsyncDisplayKit:
+    :branch: '2.0'
     :git: https://github.com/leotumwattana/AsyncDisplayKit.git
-    :tag: '2.0'
 
 CHECKOUT OPTIONS:
   AsyncDisplayKit:
+    :commit: 2c490c317fc4c5a146bb2bc155fd4e5724fe44bd
     :git: https://github.com/leotumwattana/AsyncDisplayKit.git
-    :tag: '2.0'
 
 SPEC CHECKSUMS:
   AsyncDisplayKit: ed88de8d9fb404e098f4fdde9b8db50f23972f56
   PINCache: 6d273a6e0754bd26e3f12a38a90dde73cc6a42b2
   PINRemoteImage: ff63baf185088530db6cfa41cb665e2b5126b5c3
-  STRegex: c7decbba8601717274774a3f341c4807a327a6d0
 
-PODFILE CHECKSUM: f6ece730cc2c2ad03bfe13b450843d45b098faa6
+PODFILE CHECKSUM: ea1682f4153cac3037a0b16ddf8955f491cd26cf
 
 COCOAPODS: 1.0.1

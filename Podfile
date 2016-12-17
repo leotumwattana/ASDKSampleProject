@@ -5,9 +5,7 @@ target 'ASDKSampleProject' do
 
     pod 'AsyncDisplayKit',
         git: 'https://github.com/leotumwattana/AsyncDisplayKit.git',
-        tag: '2.0'
-
-    pod 'STRegex'
+        branch: '2.0'
 
 end
 
