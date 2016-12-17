@@ -209,12 +209,14 @@ final class CellNode: ASCellNode {
         subtitle2Node.style.flexShrink = 1.0
         
         let spacer = ASLayoutSpec()
+        spacer.style.minWidth = ASDimensionMake(4)
         spacer.style.flexGrow = 1.0
         spacer.style.flexShrink = 1.0
         
         let subtitleVerticalSpec = ASStackLayoutSpec.vertical()
         subtitleVerticalSpec.spacing = 8
         subtitleVerticalSpec.children = []
+        subtitleVerticalSpec.alignItems = ASStackLayoutAlignItems.start
         subtitleVerticalSpec.style.flexShrink = 1.0
         
         if let subtitle = subtitle, !subtitle.isEmpty {
@@ -227,10 +229,13 @@ final class CellNode: ASCellNode {
         
         let innerHorizontalSpec = ASStackLayoutSpec(
             direction: .horizontal,
-            spacing: 8,
+            spacing: 0,
             justifyContent: .start,
             alignItems: .center,
             children: [subtitleVerticalSpec, spacer, buttonNode])
+        
+        innerHorizontalSpec.style.maxWidth = ASDimensionMake(
+            constrainedSize.max.width - 53 - 8 - 8)
         
         let verticalSpec = ASStackLayoutSpec.vertical()
         verticalSpec.spacing = 10
