@@ -202,7 +202,9 @@ final class CellNode: ASCellNode {
         imageNode.style.width = ASDimensionMake(53)
         imageNode.style.height = ASDimensionMake(50)
         
-        titleNode.style.maxSize = constrainedSize.max
+        titleNode.style.maxWidth = ASDimensionMake(
+            constrainedSize.max.width - 53 - 8 - 8)
+        
         titleNode.style.flexGrow = 1.0
         
         subtitleNode.style.flexShrink = 1.0
