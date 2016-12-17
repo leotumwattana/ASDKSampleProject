@@ -202,55 +202,53 @@ final class CellNode: ASCellNode {
         imageNode.style.width = ASDimensionMake(53)
         imageNode.style.height = ASDimensionMake(50)
         
-        titleNode.style.width = ASDimensionMake(UIScreen.main.bounds.width)
+        titleNode.style.maxSize = constrainedSize.max
+        titleNode.style.flexGrow = 1.0
         
-        let subtitlesStack = ASStackLayoutSpec.vertical()
-        subtitlesStack.spacing = 4
-        subtitlesStack.children = []
+        subtitleNode.style.flexShrink = 1.0
+        subtitle2Node.style.flexShrink = 1.0
         
-        let subtitleAndButtonStack = ASStackLayoutSpec.horizontal()
-        subtitleAndButtonStack.direction = .horizontal
-        subtitleAndButtonStack.spacing = 4
-        subtitleAndButtonStack.justifyContent = .start
-        subtitleAndButtonStack.alignItems = .center
-        subtitleAndButtonStack.children = [subtitlesStack]
+        let spacer = ASLayoutSpec()
+        spacer.style.flexGrow = 1.0
+        spacer.style.flexShrink = 1.0
+        
+        let subtitleVerticalSpec = ASStackLayoutSpec.vertical()
+        subtitleVerticalSpec.spacing = 8
+        subtitleVerticalSpec.children = []
+        subtitleVerticalSpec.style.flexShrink = 1.0
         
         if let subtitle = subtitle, !subtitle.isEmpty {
-            subtitleNode.style.flexShrink = 1
-            subtitlesStack.children?.append(subtitleNode)
+            subtitleVerticalSpec.children?.append(subtitleNode)
         }
         
         if isSelected {
-            subtitle2Node.style.alignSelf = .start
-            subtitle2Node.style.maxWidth = ASDimensionMake(UIScreen.main.bounds.width / 2)
-            subtitle2Node.style.flexShrink = 1
-            subtitlesStack.children?.append(subtitle2Node)
+            subtitleVerticalSpec.children?.append(subtitle2Node)
         }
         
-        let spacer = ASLayoutSpec()
-        spacer.style.flexBasis = ASDimensionMake(1)
-        spacer.style.flexGrow = 1
-        spacer.style.flexShrink = 1
-        
-        subtitleAndButtonStack.children?.append(spacer)
-        subtitleAndButtonStack.children?.append(buttonNode)
-        
-        let titleSubtitleStack = ASStackLayoutSpec.vertical()
-        titleSubtitleStack.spacing = 8
-        titleSubtitleStack.children = [titleNode, subtitleAndButtonStack]
-        
-        let horizontal = ASStackLayoutSpec(
+        let innerHorizontalSpec = ASStackLayoutSpec(
             direction: .horizontal,
-            spacing: 0,
+            spacing: 8,
             justifyContent: .start,
             alignItems: .center,
-            children: [imageNode, titleSubtitleStack])
+            children: [subtitleVerticalSpec, spacer, buttonNode])
         
-        let content = ASInsetLayoutSpec(
+        let verticalSpec = ASStackLayoutSpec.vertical()
+        verticalSpec.spacing = 10
+        verticalSpec.style.flexGrow = 1.0
+        verticalSpec.children = [titleNode, innerHorizontalSpec]
+        
+        let outerHorizontalSpec = ASStackLayoutSpec(
+            direction: .horizontal,
+            spacing: 0,
+            justifyContent: ASStackLayoutJustifyContent.start,
+            alignItems: ASStackLayoutAlignItems.center,
+            children: [imageNode, verticalSpec])
+        
+        let finalSpec = ASInsetLayoutSpec(
             insets: UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8),
-            child: horizontal)
+            child: outerHorizontalSpec)
         
-        return content
+        return finalSpec
         
     }
     
@@ -262,8 +260,8 @@ final class CellNode: ASCellNode {
         self.subtitle2Node.view.frame = finalFrame.offsetBy(dx: -finalFrame.size.width, dy: 0)
         self.subtitle2Node.view.alpha = 0
         
-        let initRepeatFrame = context.initialFrame(for: buttonNode)
-        let finalRepeatFrame = context.finalFrame(for: buttonNode)
+        //let initRepeatFrame = context.initialFrame(for: buttonNode)
+        //let finalRepeatFrame = context.finalFrame(for: buttonNode)
         
         //buttonNode.view.frame = initRepeatFrame
         
